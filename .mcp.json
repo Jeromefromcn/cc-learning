@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "trilium": {
+      "command": "npx",
+      "args": ["-y", "triliumnext-mcp"],
+      "env": {
+        "TRILIUM_API_URL": "https://trilium.jerome.cloudns.asia/etapi",
+        "TRILIUM_API_TOKEN": "3M73JrpqLcUc_bgjxSxlQXl8ZOwkyqsfaRDUwXdOO4wSW9xz/QGaLqck="
+      }
+    }
+  }
+}
