@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(rm -rf:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p .claude && jq -r '\"[\\(now | strftime(\"%Y-%m-%dT%H:%M:%S%z\"))] \\(.tool_name) \\(.tool_input.file_path // .tool_input.path // \"\")\"' >> .claude/hook.log"
+          }
+        ]
+      }
+    ]
+  }
+}

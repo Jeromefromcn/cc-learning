@@ -37,14 +37,16 @@
 **做什么**
 创建 `.claude/settings.json`，加入：
 1. 基础权限规则：`deny` 读取 `.env`、`deny` 危险命令（如 `rm -rf`）
-2. 一个最简单的 `PostToolUse` hook，比如每次 Edit/Write 后 `echo "文件已修改"` 到终端
+2. 一个最简单的 `PostToolUse` hook，每次 Edit/Write 后把触发记录追加写入 `.claude/hook.log`
 
 **为什么**
-`settings.json` 控制权限、模型、工具和 hooks，是「安全护栏」所在地。先用一个无害的 echo hook 验证 hooks 机制本身能跑通，比一上来就写复杂的自动化脚本更容易排错。
+`settings.json` 控制权限、模型、工具和 hooks，是「安全护栏」所在地。先用一个无害的 log hook 验证 hooks 机制本身能跑通，比一上来就写复杂的自动化脚本更容易排错。
+
+之所以用写 log 档而不是 `echo` 到终端：在 IDE extension（非交互式终端）环境下，hook 进程的 stdout 不会出现在对话界面里，`echo` 会造成「hook 其实跑了，但你以为没效果」的误判；写入文件则不管在哪种界面下都能直接用 Read/`tail` 验证。
 
 **如何验证**
 - 让 Claude 尝试读取 `.env` 文件，应该被拒绝，并在错误信息里能看到你设的 deny 规则
-- 让 Claude 编辑任意文件后，终端应该打印出你在 hook 里设的提示文字
+- 让 Claude 编辑任意文件后，检查 `.claude/hook.log` 是否新增了一行记录
 
 ---
 
