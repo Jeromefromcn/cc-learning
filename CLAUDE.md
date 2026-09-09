@@ -19,3 +19,5 @@ This is a learning/experimentation repo for walking through Claude Code's featur
 - `tests/test_calculator.py` — pytest tests importing from `src.calculator` (imports are rooted at the repo root, so tests must be run from there).
 
 The codebase itself is intentionally minimal — the real subject of this repo is the `.claude/` configuration being built up around it step by step, not the toy application logic.
+
+Code style and testing conventions live in `.claude/rules/` (`code-style.md`, `testing.md`) rather than here.
